@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Streamlit",
+            "type": "python",
+            "request": "launch",
+            "program": "C://mini//envs//lion//Scripts//streamlit.exe",
+            "console": "integratedTerminal",
+            "args": ["run","main.py"],
+            "justMyCode": true
+        }
+    ]
+}
