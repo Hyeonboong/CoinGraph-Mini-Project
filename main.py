@@ -57,23 +57,28 @@ def show_homepage_description():
     """
     )
 
-# 가격 급등 및 급락 코인 알림 함수
+# 상승 하락 출력
 def alert_price_changes(close_prices):
-    # 최근 7일의 종가를 가져옴
-    recent_prices = close_prices[-8:-1] # -1은 현재의 가격을 나타냄
+    # 최근 3일의 종가를 가져옴
+    recent_prices = close_prices[-4:]  # 최근 3일의 데이터 선택
     current_price = recent_prices.iloc[-1]
-    previous_price = recent_prices.iloc[0]
+    previous_price = recent_prices.iloc[-2]  # 이전 날짜의 가격을 선택
 
     # 종가 변동률 계산
     price_change_percentage = ((current_price - previous_price) / previous_price) * 100
 
     # 종가 변동에 따른 알림
     if price_change_percentage > 0:
-        st.write(f"{selected_ticker}의 최근 7일간 가격이 {price_change_percentage:.2f}% 급등했습니다!")
+        st.write(f"{selected_ticker}의 최근 3일간 가격이 {price_change_percentage:.2f}% 상승했습니다!")
+        if price_change_percentage > 5:
+            st.write("최근 3일간 5% 이상 상승한 코인으로, 거래시 유의가 필요합니다.")
     elif price_change_percentage < 0:
-        st.write(f"{selected_ticker}의 최근 7일간 가격이 {price_change_percentage:.2f}% 급락했습니다!")
+        st.write(f"{selected_ticker}의 최근 3일간 가격이 {price_change_percentage:.2f}% 하락했습니다!")
+        if price_change_percentage < -5:
+            st.write("최근 3일간 5% 이상 하락한 코인으로, 거래시 유의가 필요합니다.")
     else:
-        st.write(f"{selected_ticker}의 최근 7일간 가격이 변동이 없습니다.")
+        st.write(f"{selected_ticker}의 최근 3일간 가격이 변동이 없습니다.")
+
 
 # 코인 목록 가져오기
 coin_map = create_coin_map()
